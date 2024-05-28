@@ -5,6 +5,7 @@ namespace DesafioProjetoHospedagem.Models
         public List<Pessoa> Hospedes { get; set; }
         public Suite Suite { get; set; }
         public int DiasReservados { get; set; }
+        public int Capacidade { get; set; }
 
         public Reserva() { }
 
@@ -15,43 +16,43 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
-            {
-                Hospedes = hospedes;
-            }
+            if (hospedes.Count <= Capacidade)
+          {  
+             Hospedes = hospedes;
+              Console.WriteLine("A capacidade é suficiente para os hóspedes.");
+           } 
+        
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                Console.WriteLine("A capacidade não é suficiente para os hóspedes");
+                 throw new InvalidOperationException("A capacidade não é suficiente para os hóspedes.");
+
+                
             }
         }
 
         public void CadastrarSuite(Suite suite)
         {
             Suite = suite;
+            Capacidade = suite.Capacidade;
         }
 
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+             return Hospedes.Count;
+
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            decimal valor = DiasReservados * Suite.ValorDiaria;
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                decimal desconto = valor * 0.10m;
+                valor -= desconto;
+                Console.WriteLine($"Desconto aplicado: {desconto:C}");
             }
 
             return valor;
